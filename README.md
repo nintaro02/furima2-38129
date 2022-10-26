@@ -4,7 +4,7 @@
 |Column               | Type        | Options       |
 |---------------------|-------------|---------------|
 |nickname             |string       |null:false     |
-|email                |string       |null:false     |
+|email                |string       |null:false,unique:true|
 |encrypted_password   |string       |null:false     |
 |first_name           |string       |null:false     |
 |first_name_kana      |string       |null:false     |
@@ -14,6 +14,7 @@
 
 ### Association
 * has_many :orders
+* has_many :items
 
 ## addresses table
 |Column               |Type         |Options                    |
@@ -24,33 +25,34 @@
 |address              |string       |null:false                 |
 |building_name        |string       |                           |
 |phone_number         |string       |null:false                 |
-
+|order                |reference    |null:false,foreign_key:true|
 ### Association
-* belongs_to :orders
+* belongs_to :order
 
 ## orders table
 
 |Column               |Type         |Options                    |
 |---------------------|-------------|---------------------------|
-|user_id              |integer      |null:false                 |
-|item_id              |integer      |null:false                 |
+|user_id              |reference    |null:false,foreign_key:true|
+|item_id              |reference    |null:false,foreign_key:true|
 
 ### Association
 * belongs_to :user
-* belongs_to :items
+* belongs_to :item
+* belongs_to :address
 
 ## item table
 |Column               |Type         |Options                    |
 |---------------------|-------------|---------------------------|
-|nickname             |string       |null:false                 |
-|price_id             |integer      |null:false                 |
+|product              |string       |null:false                 |
+|price                |integer      |null:false                 |
 |description          |text         |null:false                 |
 |status_id            |integer      |null:false                 |
 |shipping_cost_id     |integer      |null:false                 |
 |shipping_days_id     |integer      |null:false                 |
 |prefecture_id        |integer      |null:false                 |
 |category_id          |integer      |null:false,foreign_key:true|
-|user_id              |integer      |null:false,foreign_key:true|
+|user_id              |reference    |null:false,foreign_key:true|
 ### Association
 * belongs_to :user
-
+* belongs_to :order
