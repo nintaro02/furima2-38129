@@ -27,7 +27,7 @@
 |phone_number         |string       |null:false                 |
 |order                |references   |null:false,foreign_key:true|
 ### Association
-* has_one :order
+* belongs_to :order
 
 ## orders table
 
@@ -38,7 +38,7 @@
 
 ### Association
 * belongs_to :user
-* has_one :item
+* belongs_to :item
 * has_one :address
 
 ## item table
